@@ -45,7 +45,7 @@ public class Start extends Application {
                         double lat = Double.parseDouble(parts[11]);
                         double lon = Double.parseDouble(parts[12]);
                         URL iconUrl = Start.class.getResource("marker.png");
-                        Marker marker = new Marker(iconUrl, 3, 3).setVisible(true);
+                        Marker marker = new Marker(iconUrl, 200, 200).setVisible(true);
                         marker.setPosition(new Coordinate(lat, lon));
                         mapView.addMarker(marker);
                     }
