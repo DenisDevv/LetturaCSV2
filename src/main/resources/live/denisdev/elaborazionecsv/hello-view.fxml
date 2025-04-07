@@ -43,6 +43,8 @@
                 <TableColumn text="Ora" fx:id="colOra"/>
                 <TableColumn text="Latitudine" fx:id="colLatitudine"/>
                 <TableColumn text="Longitudine" fx:id="colLongitudine"/>
+                <TableColumn text="Miovalore"/>
+                <TableColumn text="Cancellato"/>
             </columns>
         </TableView>
     </center>
