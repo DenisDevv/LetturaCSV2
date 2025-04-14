@@ -49,11 +49,31 @@ public class Controller {
     @FXML
     public void initialize() throws IOException {
         records = leggiCSV(PERCORSO_FILE);
+        generaFileHTML();
         aggiungiCampoMiovalore();
         setupTableColumns();
         aggiornaTabella();
     }
+    public void generaFileHTML() throws IOException {
+        StringBuilder html = new StringBuilder();
+        html.append("<!DOCTYPE html>\n<html>\n<head>\n<title>Tabella Records</title>\n</head>\n<body>\n");
+        html.append("<table border='1'>\n<tr>\n");
+        html.append("<th>Comune</th><th>Provincia</th><th>Regione</th><th>Profondità</th><th>Magnitudo</th>");
+        html.append("<th>Unità Misura Magnitudo</th><th>Fonte</th><th>Data</th><th>Anno</th><th>Mese</th>");
+        html.append("<th>Ora</th><th>Latitudine</th><th>Longitudine</th><th>Miovalore</th><th>Cancellato</th>\n</tr>\n");
+        for (String[] record : records) {
+            html.append("<tr>\n");
+            for (String campo : record) {
+                html.append("<td>").append(campo).append("</td>\n");
+            }
+            html.append("</tr>\n");
+        }
 
+        html.append("</table>\n</body>\n</html>");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("tabella_records.html"))) {
+            writer.write(html.toString());
+        }
+    }
     public List<String[]> leggiCSV(String percorsoFile) throws IOException {
         List<String[]> records = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(Objects.requireNonNull(Controller.class.getResourceAsStream(percorsoFile))))) {
@@ -110,7 +130,7 @@ public class Controller {
         String chiave = campoChiave.getText();
         for (String[] record : records) {
             if (record[0].equals(chiave)) {
-                record[1] = "ProvinciaModificata"; // Example modification
+                record[1] = "ProvinciaModificata";
                 aggiornaTabella();
                 return;
             }
